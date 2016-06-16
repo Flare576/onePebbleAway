@@ -9,6 +9,7 @@ import {
   View,
   Platform,
 } from 'react-native';
+import oneBusAway from '../common/onebusaway'
 
 var dismissKeyboard = require('dismissKeyboard');
 
@@ -17,10 +18,6 @@ import AgencyScreen from './AgencyScreen'
 
 let resultsCache = {
 };
-
-var API_URL = 'http://api.pugetsound.onebusaway.org/api/where/'
-//TODO: Add real API KEY to config file
-var API_KEY = '1234'
 
 let LOADING = false;
 
@@ -41,7 +38,7 @@ let AgenciesScreen = React.createClass({
   },
 
   _urlForQueryAndPage: function(): string {
-    return API_URL + 'agencies-with-coverage.json?key=' + API_KEY
+    return oneBusAway.url + 'agencies-with-coverage.json?key=' + oneBusAway.key
   },
 
   fetchAgencies: function() {
