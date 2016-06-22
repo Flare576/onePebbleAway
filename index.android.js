@@ -1,18 +1,24 @@
 'use strict';
 
-var React = require('react');
-var ReactNative = require('react-native');
-var {
+import React from 'react'
+import {ReactNative,
   AppRegistry,
   BackAndroid,
   Navigator,
   StyleSheet,
   ToolbarAndroid,
-  View,
-} = ReactNative;
+  View} from 'react-native'
 
-var AgencyScreen = require('./app/agencies/AgencyScreen');
-var AgenciesScreen = require('./app/agencies/AgenciesScreen');
+import AgencyScreen from './app/agencies/AgencyScreen'
+import AgenciesScreen from'./app/agencies/AgenciesScreen'
+
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+import * as reducers from './app/reducers';
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const reducer = combineReducers(reducers);
+const store = createStoreWithMiddleware(reducer);
 
 var _navigator;
 BackAndroid.addEventListener('hardwareBackPress', () => {
