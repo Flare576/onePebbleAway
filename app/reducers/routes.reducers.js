@@ -1,15 +1,6 @@
-import {CHOOSE_ROUTE, REQUEST_ROUTE, RECEIVE_ROUTE} from '../actions'
+import {CHOOSE_ROUTE, REQUEST_ROUTE, RECEIVE_ROUTE} from '../actions/routes.actions'
 
-function selectedRoute(state='', action){
-  switch(action.type){
-    case CHOOSE_ROUTE:
-      return Object.assign({}, state, action.routes)
-    default:
-      return state
-  }
-}
-
-function stops(state={}, action) {
+export function routes(state={}, action) {
   switch(action.type){
     case CHOOSE_ROUTE:
     case REQUEST_ROUTE:
@@ -21,9 +12,18 @@ function stops(state={}, action) {
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
-        items: action.stops,
+        items: action.routes,
         lastUpdated: action.receivedAt
       })
+    default:
+      return state
+  }
+}
+
+export function selectedRoute(state='', action){
+  switch(action.type){
+    case CHOOSE_ROUTE:
+      return Object.assign({}, state, action.routes)
     default:
       return state
   }

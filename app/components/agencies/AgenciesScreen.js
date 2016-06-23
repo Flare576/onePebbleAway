@@ -1,5 +1,4 @@
-import React, {
-} from 'react';
+import React from 'react';
 import {
   AppRegistry,
   Image,
@@ -9,99 +8,32 @@ import {
   View,
   Platform,
 } from 'react-native';
-import oneBusAway from '../common/onebusaway'
 
 var dismissKeyboard = require('dismissKeyboard');
 
 import AgencyCell from './AgencyCell'
-import AgencyScreen from './AgencyScreen'
-
-let resultsCache = {
-};
-
-let LOADING = false;
+import RoutesScreen from './RoutesScreen'
+import * as actions from '../../actions/agencies.actions'
 
 let AgenciesScreen = React.createClass({
 
-  getInitialState: function() {
-    return {
-      isLoading: false,
-      isLoadingTail: false,
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-    }
-  },
-
   componentDidMount: function() {
-    this.fetchAgencies();
-  },
-
-  _urlForQueryAndPage: function(): string {
-    return oneBusAway.url + 'agencies-with-coverage.json?key=' + oneBusAway.key
-  },
-
-  fetchAgencies: function() {
-    if (resultsCache.data) {
-      if (!LOADING) {
-        this.setState({
-          dataSource: this.getDataSource(resultsCache.data),
-          isLoading: false
-        });
-      } else {
-        this.setState({ isLoading: true });
-      }
-      return;
-    }
-
-    LOADING = true;
-    resultsCache.data = null;
-    this.setState({
-      isLoading: true,
-      isLoadingTail: false,
-    });
-
-    fetch(this._urlForQueryAndPage())
-      .then((response) => response.json())
-      .then((responseData) => {
-        let agencies = responseData.data.references.agencies
-        LOADING = false;
-        resultsCache.data = agencies;
-
-        this.setState({
-          isLoading: false,
-          dataSource: this.getDataSource(agencies),
-        });
-      })
-      .catch((error) => {
-        LOADING = false;
-        resultsCache.data = undefined;
-
-        this.setState({
-          dataSource: this.getDataSource([]),
-          isLoading: false,
-        });
-      })
-      .done();
-  },
-
-  getDataSource: function(agencies: Array<any>): ListView.DataSource {
-    return this.state.dataSource.cloneWithRows(agencies)
+    this.props.dispatch(actions.fetchAgenciesIfNeeded())
   },
 
   selectAgency: function(agency: Object) {
+    this.props.dispatch(actions.chooseAgency(agency))
+    
     if (Platform.OS === 'ios') {
       this.props.navigator.push({
-        title: agency.name,
-        component: AgencyScreen,
-        passProps: {agency},
+        title: 'Routes for ' + agency.name,
+        component: RoutesScreen
       });
     } else {
       dismissKeyboard();
       this.props.navigator.push({
-        title: agency.name,
-        name: 'agency',
-        agency: agency,
+        title: 'Routes for ' + agency.name,
+        name: 'routes',
       });
     }
   },
@@ -123,24 +55,24 @@ let AgenciesScreen = React.createClass({
   },
 
   renderRow: function(agency: Object, sectionID: number, rowID: number, highlightRowFunc: (sectionID: ?number | string, rowID: ?number | string) => void) {
+    //todo take out that stupid highlightRowFunc from param list and move it inside 
     return <AgencyCell
-      key={agency.id}
-      onSelect={() => this.selectAgency(agency)}
-      onHighlight={function() {return highlightRowFunc(sectionID, rowID)}}
-      onUnhighlight={function() { highlightRowFunc(null, null)}}
-      agency={agency}
-    />
+        key={agency.id}
+        onSelect={() => this.selectAgency(agency)}
+        onHighlight={function() {return highlightRowFunc(sectionID, rowID)}}
+        onUnhighlight={function() { highlightRowFunc(null, null)}}
+        agency={agency}
+      />
   },
 
   render: function() {
-    var content = this.state.dataSource.getRowCount() === 0 ?
+    var content = !props.agencies || props.agencies.isFetching ?
       <NoAgencies
-        isLoading={this.state.isLoading}
+        isLoading={props.agencies.isFetching}
       /> :
       <ListView
         ref="listview"
         renderSeparator={this.renderSeparator}
-        dataSource={this.state.dataSource}
         renderFooter={this.renderFooter}
         renderRow={this.renderRow}
         automaticallyAdjustContentInsets={false}
