@@ -41,7 +41,7 @@ let data = {
       ]
     }
   },
-  //Note, this is from stops-for-route/#.json, data.entry.stopGroupings looped and removed 'polylines'
+  //Note, this is from stops-for-route/#.json, data.entry.stopGroupings[0].stopGroups
   stopGroups: {
     "1_100143": {
       "isFetching": false,
@@ -138,8 +138,36 @@ let data = {
       }
     ]}
   },
+  //Note, this is from stops-for-route/#.json, data.references.stops
+  stops: [
+      {
+        "code": "840",
+        "direction": "N",
+        "id": "1_840",
+        "lat": 47.59988,
+        "locationType": 0,
+        "lon": -122.32756,
+        "name": "5th Ave S & S Jackson St",
+        "routeIds": [
+        "1_100011",
+        "1_100013",
+        "1_100104",
+        "1_100106",
+        "1_100108",
+        "1_100109",
+        "1_100459",
+        "1_100110",
+        "1_100143",
+        "1_100148",
+        "1_100159",
+        "1_100186",
+        "40_100240"
+      ],
+        "wheelchairBoarding": "UNKNOWN"
+      }
+  ],
   //Note: from schedule-for-stop/#.json, data.entry.stopRouteSchedules
-  stops: {
+  stopSchedule: {
     "1_840": {
       "1_100143": {
         "routeId": "1_100143",

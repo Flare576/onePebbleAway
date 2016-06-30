@@ -13,6 +13,6 @@ export function shouldFetchGeneral(thing){
   } else if (thing.isFetching){
     return false
   } else{
-    return thing.didInvalidate
+    return thing.didInvalidate === undefined || thing.didInvalidate
   }
 }

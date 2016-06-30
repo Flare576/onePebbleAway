@@ -1,5 +1,5 @@
 //import 'babel-polyfill'
 import React, { AppRegistry } from 'react-native';
-import App from './app/containers/app';
+import OnePebbleAway from './app/containers/onePebbleAwayApp';
 
-AppRegistry.registerComponent('OnePebbleAway', () => App);
+AppRegistry.registerComponent('onePebbleAway', () => OnePebbleAway);

@@ -15,14 +15,28 @@ export default combineReducers({
 })
 */
 
-import combineReducers from 'redux';
+// import combineReducers from 'redux';
 import * as agencies from './agencies.reducers'
 import * as routes from './routes.reducers'
 import * as stops from './stops.reducers'
 
-let allReducers = Object.assign({}, agencies, routes, stops)
-let rootReducer = combineReducers(allReducers)
+export default function rootReducer(state = {}, action){
+  return {
+    agencies: agencies.agencies(state.agencies, action),
+    selectedAgency: agencies.selectedAgency(state.selectedAgency, action),
+    routes: routes.routes(state.routes, action),
+    selectedRoute: routes.selectedRoute(state.selectedRoute, action),
+    stops: stops.stops(state.stops, action),
+    stopGroups: stops.stopGroups(state.stopGroups, action),
+    pebbleStopSets: stops.pebbleStopSets(state.pebbleStopSets, action),
+    selectedStop: stops.selectedStop(state.selectedStop, action)
+  }
+}
 
-export default rootReducer
+// let allReducers = Object.assign({}, agencies, routes, stops)
+// let allReducers = Object.assign({}, routes)
+// let rootReducer = combineReducers(allReducers)
 
-//export default () => {}
+// export default rootReducer
+
+// export default () => {}

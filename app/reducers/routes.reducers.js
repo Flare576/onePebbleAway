@@ -23,7 +23,7 @@ export function routes(state={}, action) {
 export function selectedRoute(state='', action){
   switch(action.type){
     case CHOOSE_ROUTE:
-      return Object.assign({}, state, action.routes)
+      return action.route
     default:
       return state
   }

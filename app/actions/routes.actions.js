@@ -39,7 +39,7 @@ export function fetchRoutesIfNeeded(agency){
 
 function fetchRoutes(agency){
   return (dispatch) => {
-    dispatch(requestAgency(agency))
+    dispatch(requestRoutes(agency))
     return fetch(buildURL('routes-for-agency/{}.json', agency))
       .then(response => response.json())
       .then(json =>
@@ -49,5 +49,5 @@ function fetchRoutes(agency){
 }
 
 function shouldFetchRoutes(state, agency){
-  return shouldFetchGeneral(state.agencies.items[agency])
+  return shouldFetchGeneral(state.routes[agency])
 }
