@@ -25,6 +25,7 @@ export default function rootReducer(state = {}, action){
     agencies: agencies.agencies(state.agencies, action),
     selectedAgency: agencies.selectedAgency(state.selectedAgency, action),
     routes: routes.routes(state.routes, action),
+    routeFilter: routes.routeFilter(state.routeFilter, action),
     selectedRoute: routes.selectedRoute(state.selectedRoute, action),
     stops: stops.stops(state.stops, action),
     stopGroups: stops.stopGroups(state.stopGroups, action),

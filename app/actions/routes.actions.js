@@ -4,6 +4,7 @@ import {buildURL, shouldFetchGeneral} from '../common/ajaxTools'
 export const REQUEST_ROUTE = 'REQUEST_ROUTE'
 export const RECEIVE_ROUTE = 'RECEIVE_ROUTE'
 export const CHOOSE_ROUTE = 'CHOOSE_ROUTE'
+export const FILTER_ROUTE = 'FILTER_ROUTE'
 
 export function requestRoutes(agency){
   return {
@@ -24,6 +25,13 @@ export function chooseRoute(route){
   return {
     type: CHOOSE_ROUTE,
     route
+  }
+}
+
+export function filterRoute(filter){
+  return {
+    type: FILTER_ROUTE,
+    filter
   }
 }
 
