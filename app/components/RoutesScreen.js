@@ -49,17 +49,16 @@ class RoutesScreen extends Component {
       const dataSource = this.dataSource.cloneWithRows(this.props.items);
       //onEndEditing  maybe?
       return (
-        <View style={{marginTop: 100}}>
+        <View style={{flex:1, marginTop: 100}}>
           <TextInput
             onChangeText={(text) => this.filterRoute({text})}
           />
           <View style={{flex:1}}>
             <ListView
-                      contentInset={{top: 0}}
-                      automaticallyAdjustContentInsets={false}
-                      dataSource={dataSource}
-                      renderRow={this.renderRow.bind(this)}
-                      pageSize={5}
+              contentInset={{top: 0}}
+              automaticallyAdjustContentInsets={false}
+              dataSource={dataSource}
+              renderRow={this.renderRow.bind(this)}
             />
           </View>
         </View>
