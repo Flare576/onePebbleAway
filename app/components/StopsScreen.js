@@ -34,23 +34,23 @@ class StopsScreen extends Component {
     Actions.stops()// should be the modal window asking which Pebble group to add to
   }
 
-  renderHeader(stopGroup){
+  renderHeader(stopGroup, i, isActive){
     return (
-      <View style={styles.header}>
+      <View style={[styles.header, isActive ? styles.active : styles.inactive]}>
         <Text>{stopGroup.name.name}</Text>
       </View>
     )
   }
 
-  renderContent(stopGroup){
+  renderContent(stopGroup, i, isActive){
     let content = stopGroup.stopIds.map( (stopId) => (
-      <TouchableHighlight key={stopId} onPress={() => this.chooseStop(stopId)}>
+      <TouchableHighlight key={stopId} style={styles.button} onPress={() => this.chooseStop(stopId)}>
         <Text>{this.props.stops[stopId].name}</Text>
       </TouchableHighlight>
     ))
 
     return (
-      <View style={styles.content}>
+      <View style={[styles.content, isActive ? styles.active : styles.inactive]}>
         {content}
       </View>
     )
@@ -65,7 +65,7 @@ class StopsScreen extends Component {
       )
     } else{
       return (
-        <View style={{margin: 128,flex: 1}}>
+        <View style={styles.container}>
           <Accordion
             sections={this.props.items}
             renderHeader={this.renderHeader}
@@ -101,8 +101,7 @@ function mapStateToProps(state) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
+    marginTop: 128,
   },
   title: {
     textAlign: 'center',
@@ -111,8 +110,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   header: {
-    backgroundColor: '#F5FCFF',
     padding: 10,
+    margin: 2,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#000000',
   },
   headerText: {
     textAlign: 'center',
@@ -122,7 +124,11 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#fff',
+  },
+  button: {
+    padding: 10,
+    flex: 1,
+    flexDirection: 'row',
   },
   active: {
     backgroundColor: 'rgba(255,255,255,1)',
@@ -133,7 +139,6 @@ const styles = StyleSheet.create({
   selectors: {
     marginBottom: 10,
     flexDirection: 'row',
-    justifyContent: 'center',
   },
   selector: {
     backgroundColor: '#F5FCFF',

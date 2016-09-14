@@ -1,7 +1,6 @@
 import {REQUEST_AGENCIES, RECEIVE_AGENCIES, CHOOSE_AGENCY} from '../actions/agencies.actions'
 
 export function agencies(state={}, action){
-  console.log(action)
   switch(action.type){
     case REQUEST_AGENCIES:
       return Object.assign({}, state, {

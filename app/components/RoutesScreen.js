@@ -31,7 +31,7 @@ class RoutesScreen extends Component {
     let name = route.shortName + divider + route.longName
     return (
       <View style={styles.row}>
-        <TouchableHighlight key={route.id} onPress={() => this.chooseRoute(route)}>
+        <TouchableHighlight key={route.id} style={styles.button} onPress={() => this.chooseRoute(route)}>
           <Text>{name}</Text>
         </TouchableHighlight>
       </View>
@@ -70,11 +70,16 @@ class RoutesScreen extends Component {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    padding: 10,
     margin: 2,
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: '#000000'
+    borderColor: '#000000',
+    flex: 1,
+  },
+  button: {
+    padding: 10,
+    flex: 1,
+    flexDirection: 'row',
   }
 })
 

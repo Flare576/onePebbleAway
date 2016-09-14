@@ -25,7 +25,7 @@ class AgenciesScreen extends Component {
   renderRow (agency) {
     return (
       <View style={styles.row}>
-        <TouchableHighlight key={agency.id} onPress={() => this.chooseAgency(agency)}>
+        <TouchableHighlight key={agency.id} style={styles.button} onPress={() => this.chooseAgency(agency)}>
           <Text>{agency.name}</Text>
         </TouchableHighlight>
       </View>
@@ -60,11 +60,16 @@ class AgenciesScreen extends Component {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    padding: 10,
-    margin: 2,
     borderRadius: 4,
+    margin: 2,
     borderWidth: 0.5,
-    borderColor: '#000000'
+    borderColor: '#000000',
+    flex: 1,
+  },
+  button: {
+    padding: 10,
+    flex: 1,
+    flexDirection: 'row',
   }
 })
 
