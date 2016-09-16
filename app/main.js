@@ -2,6 +2,7 @@ let data = {
   selectedAgency: "1",
   selectedRoute: "1_100143",
   selectedStop: "1_840",
+  selectedPebbleStopSet: '0',
   //Note: this is from agencies-with-coverage.json, sub-element: data.references.agencies
   agencies: {
     "isFetching": false,

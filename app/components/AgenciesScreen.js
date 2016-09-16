@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { View, ListView, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as actions from '../actions/agencies.actions'
-
+import PebbleStopsButton from './PebbleStopsButton'
 
 class AgenciesScreen extends Component {
   constructor(props){
@@ -42,7 +42,13 @@ class AgenciesScreen extends Component {
     } else{
       const dataSource = this.dataSource.cloneWithRows(this.props.items);
       return (
-        <View style={{flex:1, marginTop: 100}}>
+        <View style={styles.topLevel}>
+          <View style={styles.pebbleStopContainer}>
+            <Text style={styles.pebbleStopHeader}>Pebble Bus Group:</Text>
+            <View style={styles.pebbleStopHolder}>
+              <PebbleStopsButton/>
+            </View>
+          </View>
           <View style={{flex:1}}>
             <ListView
               contentInset={{top: 0}}
@@ -58,6 +64,21 @@ class AgenciesScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  topLevel: {
+    marginTop: 55,
+    flex: 1
+  },
+  pebbleStopContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  pebbleStopHolder: {
+    height: 45,
+    width: 200
+  },
+  pebbleStopHeader: {
+    marginBottom: 10
+  },
   row: {
     flexDirection: 'row',
     borderRadius: 4,

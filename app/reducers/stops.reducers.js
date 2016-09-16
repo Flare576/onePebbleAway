@@ -4,6 +4,7 @@ import {
   RECEIVE_STOP_GROUPS,
   CHOOSE_STOP,
   CREATE_PEBBLE_GROUP,
+  CHOOSE_PEBBLE_GROUP,
   ADD_STOP_TO_PEBBLE_GROUP} from '../actions/stops.actions'
 
 export function stopGroups(state={}, action) {
@@ -73,5 +74,14 @@ export function pebbleStopSets(state=[], action){
         }
       })
     default: return state
+  }
+}
+
+export function selectedPebbleStopSet(state='', action){
+  switch(action.type){
+    case CHOOSE_PEBBLE_GROUP:
+      return action.id
+    default:
+      return state
   }
 }

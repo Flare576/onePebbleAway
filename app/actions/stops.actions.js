@@ -6,6 +6,7 @@ export const RECEIVE_STOP_GROUPS = 'RECEIVE_STOP_GROUPS'
 export const RECEIVE_STOPS = 'RECEIVE_STOPS'
 export const CHOOSE_STOP = 'CHOOSE_STOP'
 export const CREATE_PEBBLE_GROUP = 'CREATE_PEBBLE_GROUP'
+export const CHOOSE_PEBBLE_GROUP = 'CHOOSE_PEBBLE_GROUP'
 export const ADD_STOP_TO_PEBBLE_GROUP = 'ADD_STOP_TO_PEBBLE_GROUP'
 //todo need to delete pebble group and remove stop/route
 
@@ -43,6 +44,13 @@ export function createPebbleGroup(name){
   return {
     type: CREATE_PEBBLE_GROUP,
     name
+  }
+}
+
+export function choosePebbleGroup(id){
+  return {
+    type: CHOOSE_PEBBLE_GROUP,
+    id
   }
 }
 
