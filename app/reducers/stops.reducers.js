@@ -4,8 +4,12 @@ import {
   RECEIVE_STOP_GROUPS,
   CHOOSE_STOP,
   CREATE_PEBBLE_GROUP,
+  REMOVE_PEBBLE_GROUP,
+  EDIT_PEBBLE_GROUP,
   CHOOSE_PEBBLE_GROUP,
-  ADD_STOP_TO_PEBBLE_GROUP} from '../actions/stops.actions'
+  ADD_STOP_TO_PEBBLE_GROUP,
+  REMOVE_STOP_FROM_PEBBLE_GROUP,
+  EDIT_STOP_IN_PEBBLE_GROUP} from '../actions/stops.actions'
 
 export function stopGroups(state={}, action) {
   switch(action.type){
@@ -58,6 +62,16 @@ export function pebbleStopSets(state=[], action){
         routeStops: []
       }
       ]
+    case EDIT_PEBBLE_GROUP:
+      return state.map((group, index) => {
+        if(index === action.id) {
+          return Object.assign({}, state, {name: action.name})
+        } else{
+          return group
+        }
+      })
+    case REMOVE_PEBBLE_GROUP:
+      return [...state.split(0, action.id), ...state.split(action.id + 1)]
     case ADD_STOP_TO_PEBBLE_GROUP:
       return state.map( (group, index) => {
         if (index == action.groupId) {
@@ -70,6 +84,34 @@ export function pebbleStopSets(state=[], action){
             ]
           })
         } else{
+          return group
+        }
+      })
+    case REMOVE_STOP_FROM_PEBBLE_GROUP:
+      return state.map((group, index) => {
+        if(index === action.groupId){
+          return Object.assign({}, group, {
+            routeStops: group.routeStops.filter((routeStop) =>
+              routeStop.route === action.route && routeStop.stop === action.stop
+            )
+          })
+        } else {
+          return group
+        }
+      })
+    case EDIT_STOP_IN_PEBBLE_GROUP:
+      return state.map((group, index) => {
+        if(index === action.groupId){
+          return Object.assign({}, group, {
+            routeStops: group.routeStops.map((routeStop) => {
+              if(routeStop.route === action.route && routeStop.stop === action.stop){
+                Object.assign({}, group, {manualOffset: action.manualOffset})
+              } else {
+                return group
+              }
+            })
+          })
+        } else {
           return group
         }
       })

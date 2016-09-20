@@ -6,9 +6,12 @@ export const RECEIVE_STOP_GROUPS = 'RECEIVE_STOP_GROUPS'
 export const RECEIVE_STOPS = 'RECEIVE_STOPS'
 export const CHOOSE_STOP = 'CHOOSE_STOP'
 export const CREATE_PEBBLE_GROUP = 'CREATE_PEBBLE_GROUP'
+export const REMOVE_PEBBLE_GROUP = 'REMOVE_PEBBLE_GROUP'
+export const EDIT_PEBBLE_GROUP = 'EDIT_PEBBLE_GROUP'
 export const CHOOSE_PEBBLE_GROUP = 'CHOOSE_PEBBLE_GROUP'
 export const ADD_STOP_TO_PEBBLE_GROUP = 'ADD_STOP_TO_PEBBLE_GROUP'
-//todo need to delete pebble group and remove stop/route
+export const REMOVE_STOP_FROM_PEBBLE_GROUP = 'REMOVE_STOP_FROM_PEBBLE_GROUP'
+export const EDIT_STOP_IN_PEBBLE_GROUP = 'EDIT_STOP_IN_PEBBLE_GROUP'
 
 export function requestStopGroups(route){
   return {
@@ -54,9 +57,43 @@ export function choosePebbleGroup(id){
   }
 }
 
+export function removePebbleGroup(id){
+  return {
+    type: REMOVE_PEBBLE_GROUP,
+    id
+  }
+}
+
+export function editPebbleGroup(id, name){
+  return {
+    type: EDIT_PEBBLE_GROUP,
+    id,
+    name
+  }
+}
+
 export function addStopToPebbleGroup(groupId, route, stop, manualOffset){
   return {
     type: ADD_STOP_TO_PEBBLE_GROUP,
+    groupId,
+    route,
+    stop,
+    manualOffset
+  }
+}
+
+export function removeStopFromPebbleGroup(groupId, route, stopId){
+  return {
+    type: REMOVE_STOP_FROM_PEBBLE_GROUP,
+    route,
+    groupId,
+    stopId
+  }
+}
+
+export function editStopToPebbleGroup(groupId, route, stop, manualOffset){
+  return {
+    type: EDIT_STOP_IN_PEBBLE_GROUP,
     groupId,
     route,
     stop,
